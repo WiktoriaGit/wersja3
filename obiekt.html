@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Model AR</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #000;
+      }
+
+      model-viewer {
+        width: 100vw;
+        height: 100vh;
+        display: block;
+      }
+
+      .ar-button {
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <model-viewer
+      id="viewer"
+      ar
+      ar-modes="scene-viewer webxr quick-look"
+      ar-scale="auto"
+      auto-rotate
+      camera-controls
+      environment-image="neutral"
+      shadow-intensity="1"
+      exposure="1"
+    >
+      <button slot="ar-button" class="ar-button">📱 Zobacz w AR</button>
+    </model-viewer>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const modelPath = params.get("model");
+
+      if (modelPath) {
+        document.getElementById("viewer").setAttribute("src", modelPath);
+      } else {
+        alert("Nie podano modelu do wyświetlenia!");
+      }
+    </script>
+  </body>
+</html>
